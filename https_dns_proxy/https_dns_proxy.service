@@ -1,0 +1,10 @@
+[Unit]
+Description=HTTPS-over-DNS proxy
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/https_dns_proxy -a 192.168.53.53 -p 53 -d -u nobody -g nobody -v
+
+[Install]
+WantedBy=multi-user.target

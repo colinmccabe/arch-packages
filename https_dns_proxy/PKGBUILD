@@ -1,0 +1,38 @@
+pkgname=https_dns_proxy
+pkgver=ff169b05cc91b6f3c1b897749922bcb132060ea7
+pkgrel=1
+pkgdesc='A lightweight DNS-over-HTTPS proxy'
+arch=('x86_64')
+url='https://github.com/aarond10/https_dns_proxy'
+license=('custom:MIT')
+depends=('c-ares' 'curl' 'libev')
+makedepends=('cmake')
+source=("${pkgname}--${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        'https_dns_proxy.service'
+        'lo.network')
+sha256sums=('eb5c2974cf43a27db206a93e9128a9b8ed995f7e15a45bad9c2523b93609505b'
+            '8cc0d9b6ee05fb3ff2f9de836a4488b9510840fd5267dfbb99be066cb42d9461'
+            'b3b9b93016b73b0ce077c965912252cd6197a03828960425bf4741e5f2815e97')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cmake . -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  # Executable
+  install -Dm755 ./https_dns_proxy \
+    ${pkgdir}/usr/bin/https_dns_proxy
+
+  # systemd service
+  install -Dm644 ../../${source[1]} \
+    ${pkgdir}/usr/lib/systemd/system/${source[1]}
+
+  # Workaround for systemd not caching lookups
+  # https://github.com/systemd/systemd/issues/4461
+  install -Dm644 ../../${source[2]} \
+    ${pkgdir}/etc/systemd/network/${source[2]}
+}
