@@ -9,9 +9,11 @@ depends=('c-ares' 'curl' 'libev')
 makedepends=('cmake')
 source=("${pkgname}--${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         'https_dns_proxy.service'
-        'lo.network')
+        'https_dns_proxy.timer'
+        '10-https_dns_proxy.network')
 sha256sums=('eb5c2974cf43a27db206a93e9128a9b8ed995f7e15a45bad9c2523b93609505b'
-            '8cc0d9b6ee05fb3ff2f9de836a4488b9510840fd5267dfbb99be066cb42d9461'
+            '5a91b34214ba6f7b9b57d7291e65af4369ba09bf11bc3ec00a5436b453538873'
+            'aaa25b8c89addc25de21879a960bda66fd4264f1cbbd4c2fa357aea43b7968dd'
             'b3b9b93016b73b0ce077c965912252cd6197a03828960425bf4741e5f2815e97')
 
 build() {
@@ -27,12 +29,14 @@ package() {
   install -Dm755 ./https_dns_proxy \
     ${pkgdir}/usr/bin/https_dns_proxy
 
-  # systemd service
+  # systemd service and timer
   install -Dm644 ../../${source[1]} \
     ${pkgdir}/usr/lib/systemd/system/${source[1]}
+  install -Dm644 ../../${source[2]} \
+    ${pkgdir}/usr/lib/systemd/system/${source[2]}
 
   # Workaround for systemd not caching lookups
   # https://github.com/systemd/systemd/issues/4461
-  install -Dm644 ../../${source[2]} \
-    ${pkgdir}/etc/systemd/network/${source[2]}
+  install -Dm644 ../../${source[3]} \
+    ${pkgdir}/etc/systemd/network/${source[3]}
 }
