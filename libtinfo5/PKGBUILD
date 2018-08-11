@@ -1,0 +1,13 @@
+pkgname=libtinfo5
+pkgver=1.0
+pkgrel=1
+pkgdesc='libtinfo.so.5 symlink for Elm 0.19'
+arch=(x86_64)
+license=(MIT)
+depends=(ncurses)
+conflicts=(ncurses5-compat-libs)
+
+package() {
+  mkdir -p "$pkgdir/usr/lib"
+  ln -s /usr/lib/libncursesw.so.6 "$pkgdir/usr/lib/libtinfo.so.5"
+}
