@@ -1,0 +1,19 @@
+pkgname=gvisor-bin
+pkgver=2019_05_13
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/google/gvisor"
+license=('Apache')
+_pkgdate="${pkgver//_/-}"
+source=("runsc-${_pkgdate}::https://storage.googleapis.com/gvisor/releases/nightly/${_pkgdate}/runsc"
+        'daemon.json')
+sha256sums=('0d311d6dfb8da55489d977e0a4a8138897bf891052c60e8b4189d0b1283803a5'
+            '27a328380fcf2060479ab5f76567d7fbc10720d79284aff5b4fe90f060078b1d')
+
+package() {
+  mkdir -p "$pkgdir"/usr/bin
+  install -m755 "runsc-${_pkgdate}" "$pkgdir"/usr/bin/runsc
+
+  mkdir -p -m700 "$pkgdir"/etc/docker
+  install daemon.json "$pkgdir"/etc/docker/daemon.json
+}
