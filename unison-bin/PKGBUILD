@@ -1,0 +1,17 @@
+pkgname=unison-bin
+pkgver=2.48.4
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/bcpierce00/unison"
+license=('GPL3')
+conflicts=('unison')
+_binname="unison-${pkgver}-linux-x86_64-text"
+
+source=("https://github.com/bcpierce00/unison/releases/download/${pkgver}/${_binname}.tar.gz")
+sha256sums=('594bc78f961104ea5824e9192689da81ff94e6a398fe0d382fe0d59e6eb3a80a')
+
+package() {
+  tar -xf ${_binname}.tar.gz
+  mkdir -p "$pkgdir"/usr/bin
+  install -m755 "${_binname}" "$pkgdir"/usr/bin/unison
+}
