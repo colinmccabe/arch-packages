@@ -1,9 +1,0 @@
-# Needed by https_dns_proxy
-# Workaround for systemd not caching lookups
-# https://github.com/systemd/systemd/issues/4461
-
-[Match]
-Name=lo
-
-[Network]
-Address=192.168.53.53/32
