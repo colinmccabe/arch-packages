@@ -1,0 +1,10 @@
+[Unit]
+Description=Docker daemon (rootless, user 1000)
+
+[Service]
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+ExecStart=/usr/bin/dockerd-rootless.sh --experimental --storage-driver fuse-overlayfs
+User=1000
+
+[Install]
+WantedBy=multi-user.target

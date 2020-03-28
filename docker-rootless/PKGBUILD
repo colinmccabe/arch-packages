@@ -1,0 +1,25 @@
+pkgname=docker-rootless
+pkgver=2020.03.28
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/docker/docker-install/blob/master/rootless-install.sh"
+license=('Apache')
+depends=('fuse-overlayfs' 'slirp4netns')
+provides=('docker')
+conflicts=('docker' 'containerd' 'runc')
+source=("docker-${pkgver}.tgz::https://master.dockerproject.org/linux/x86_64/docker.tgz"
+        "docker-rootless-extras-${pkgver}.tgz::https://master.dockerproject.org/linux/x86_64/docker-rootless-extras.tgz"
+        'docker-rootless.service')
+
+sha256sums=('6deafd275781968f44947c3c4afecbd3984744fb502d39acddc6b50bdf962e41'
+            'f667f9e95bc0e120e28e36d5e242343af183a4374a1c3fafc4def34688728a52'
+            '19b90de1df3618d47416cef4035f6b470c238163031defd9a3c527745dbb3ad7')
+
+package() {
+  mkdir -p "$pkgdir"/usr/bin
+  tar -xf docker-${pkgver}.tgz -C "$pkgdir/usr/bin" --strip-components=1
+  tar -xf docker-rootless-extras-${pkgver}.tgz -C "$pkgdir/usr/bin" --strip-components=1
+
+  mkdir -p "$pkgdir/usr/lib/systemd/system"
+  install docker-rootless.service "$pkgdir/usr/lib/systemd/system"
+}
