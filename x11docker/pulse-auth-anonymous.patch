@@ -1,0 +1,12 @@
+diff --unified --recursive --text package.orig/x11docker-6.6.2/x11docker package.new/x11docker-6.6.2/x11docker
+--- package.orig/x11docker-6.6.2/x11docker	2020-05-19 03:55:49.000000000 -0400
++++ package.new/x11docker-6.6.2/x11docker	2020-12-05 20:49:54.385213769 -0500
+@@ -1870,7 +1870,7 @@
+   case $Pulseaudiomode in
+     socket)
+       # create pulseaudio socket
+-      unpriv "pactl load-module module-native-protocol-unix socket=$Pulseaudiosocket 2>&1" >>$Messagelogfile && {
++      unpriv "pactl load-module module-native-protocol-unix socket=$Pulseaudiosocket auth-anonymous=true 2>&1" >>$Messagelogfile && {
+         store_runoption env "PULSE_SERVER=unix:$(convertpath share $Pulseaudiosocket)"
+         store_runoption env "PULSE_COOKIE=$(convertpath share $Pulseaudiocookie)"
+       } || {
