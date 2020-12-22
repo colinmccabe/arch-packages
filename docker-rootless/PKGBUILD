@@ -1,5 +1,5 @@
 pkgname=docker-rootless
-pkgver=2020.07.11
+pkgver=20.10.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/docker/docker-install/blob/master/rootless-install.sh"
@@ -7,12 +7,12 @@ license=('Apache')
 depends=('fuse-overlayfs' 'slirp4netns')
 provides=('docker')
 conflicts=('docker' 'containerd' 'runc')
-source=("docker-${pkgver}.tgz::https://master.dockerproject.org/linux/x86_64/docker.tgz"
-        "docker-rootless-extras-${pkgver}.tgz::https://master.dockerproject.org/linux/x86_64/docker-rootless-extras.tgz"
+source=("docker-${pkgver}.tgz::https://download.docker.com/linux/static/stable/x86_64/docker-${pkgver}.tgz"
+        "docker-rootless-extras-${pkgver}.tgz::https://download.docker.com/linux/static/stable/x86_64/docker-rootless-extras-${pkgver}.tgz"
         'docker-rootless.service')
 
-sha256sums=('6f435df6923aa857250796b3975b58fd0b2b136d6393944a3dd81a75ebda383b'
-            '27f1bfffe97228cc209c4b156c903e7655e550b353ce5856cc066fabd3e69207'
+sha256sums=('8790f3b94ee07ca69a9fdbd1310cbffc729af0a07e5bf9f34a79df1e13d2e50e'
+            '12e6bccb2ebbb3386a0157d04c03950cbab670bdd910ed408d8740d0e1543af9'
             '19b90de1df3618d47416cef4035f6b470c238163031defd9a3c527745dbb3ad7')
 
 package() {
