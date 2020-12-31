@@ -13,7 +13,7 @@ source=("docker-${pkgver}.tgz::https://download.docker.com/linux/static/stable/x
 
 sha256sums=('8790f3b94ee07ca69a9fdbd1310cbffc729af0a07e5bf9f34a79df1e13d2e50e'
             '12e6bccb2ebbb3386a0157d04c03950cbab670bdd910ed408d8740d0e1543af9'
-            '19b90de1df3618d47416cef4035f6b470c238163031defd9a3c527745dbb3ad7')
+            'aa7dc08964165d217dcec98c180ebf33c21ddab1638077002eff82a08e52dd97')
 
 package() {
   mkdir -p "$pkgdir"/usr/bin
