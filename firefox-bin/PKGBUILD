@@ -1,0 +1,59 @@
+pkgname=firefox-bin
+_pkgname=firefox
+pkgver=84.0.2
+pkgrel=1
+pkgdesc="Standalone web browser from mozilla.org"
+arch=('x86_64')
+url="https://www.mozilla.org/en-US/firefox/"
+license=('MPL' 'GPL' 'LGPL')
+depends=('dbus-glib' 'gtk3' 'libxt' 'nss' 'libpulse' 'mime-types'
+         'startup-notification' 'ttf-font')
+optdepends=('ffmpeg: H264/AAC/MP3 decoding'
+            'hunspell: Spell checking'
+            'hyphen: Hyphenation'
+            'libnotify: Notification integration'
+            'networkmanager: Location detection via available WiFi networks'
+            'pulseaudio: Sound'
+            'upower: Battery API')
+provides=("firefox=$pkgver")
+conflicts=('firefox')
+source=("https://ftp.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.bz2"
+        "https://ftp.mozilla.org/pub/firefox/releases/$pkgver/linux-x86_64/en-US/firefox-$pkgver.tar.bz2.asc"
+        "$_pkgname.sh"
+        "$pkgname.desktop")
+sha256sums=('4d987bc87b56dfd2518e162401496c247750ca0a18d8c9072c9ad1ecbd67cbb9'
+            '281d2a8f3ec986fc6fea4721bb1777ca209e5f925b042d71d6b4ce0fdfaa2168'
+            'fb7ffa69b4a7b133caec527d2ff5059280be8f4e6c6554a29cab1803761467df'
+            '6ff746b8e6d642accc64cb31f173d75b5d069167c0511aa1ff5010540a6e1310')
+validpgpkeys=('14F26682D0916CDD81E37B6D61B7B526D98F0353')
+
+package() {
+  # Create directories
+  msg2 "Creating directory structure..."
+  mkdir -p "$pkgdir"/usr/bin
+  mkdir -p "$pkgdir"/usr/share/applications
+  mkdir -p "$pkgdir"/opt
+
+  msg2 "Moving stuff in place..."
+  # Install
+  cp -r firefox/ "$pkgdir"/opt/$_pkgname
+
+  # Launchers
+  install -m755 $_pkgname.sh "$pkgdir"/usr/bin/$_pkgname
+  ln -s $_pkgname "$pkgdir"/usr/bin/$pkgname
+
+  # Desktops
+  install -m644 *.desktop "$pkgdir"/usr/share/applications/
+
+  # Icons
+  for i in 16x16 32x32 48x48 64x64 128x128; do
+    install -d "$pkgdir"/usr/share/icons/hicolor/$i/apps/
+    ln -s /opt/$_pkgname/browser/chrome/icons/default/default${i/x*}.png \
+          "$pkgdir"/usr/share/icons/hicolor/$i/apps/$_pkgname.png
+  done
+
+  # Use system-provided dictionaries
+  #rm -r "$pkgdir"/opt/$_pkgname/dictionaries
+  ln -Ts /usr/share/hunspell "$pkgdir"/opt/$_pkgname/dictionaries
+  ln -Ts /usr/share/hyphen "$pkgdir"/opt/$_pkgname/hyphenation
+}
