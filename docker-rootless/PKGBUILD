@@ -1,5 +1,5 @@
 pkgname=docker-rootless
-pkgver=20.10.1
+pkgver=20.10.5
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/docker/docker-install/blob/master/rootless-install.sh"
@@ -11,8 +11,8 @@ source=("docker-${pkgver}.tgz::https://download.docker.com/linux/static/stable/x
         "docker-rootless-extras-${pkgver}.tgz::https://download.docker.com/linux/static/stable/x86_64/docker-rootless-extras-${pkgver}.tgz"
         'docker-rootless.service')
 
-sha256sums=('8790f3b94ee07ca69a9fdbd1310cbffc729af0a07e5bf9f34a79df1e13d2e50e'
-            '12e6bccb2ebbb3386a0157d04c03950cbab670bdd910ed408d8740d0e1543af9'
+sha256sums=('3f18edc66e1faae607d428349e77f9800bdea554528521f0f6c49fc3f1de6abf'
+            'c7265d1c376dcfc182714235fc3e8ea5e2f3f540af94450fa0469cac97b3dd55'
             'aa7dc08964165d217dcec98c180ebf33c21ddab1638077002eff82a08e52dd97')
 
 package() {
