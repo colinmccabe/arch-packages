@@ -1,12 +1,12 @@
-diff --unified --recursive --text package.orig/x11docker-6.6.2/x11docker package.new/x11docker-6.6.2/x11docker
---- package.orig/x11docker-6.6.2/x11docker	2020-05-19 03:55:49.000000000 -0400
-+++ package.new/x11docker-6.6.2/x11docker	2020-12-05 20:49:54.385213769 -0500
-@@ -1870,7 +1870,7 @@
+diff '--color=auto' --unified --recursive --text package.orig/x11docker-6.9.0/x11docker package.new/x11docker-6.9.0/x11docker
+--- package.orig/x11docker-6.9.0/x11docker	2021-06-02 16:09:14.000000000 -0400
++++ package.new/x11docker-6.9.0/x11docker	2021-08-28 21:12:03.708707650 -0400
+@@ -1948,7 +1948,7 @@
    case $Pulseaudiomode in
      socket)
        # create pulseaudio socket
--      unpriv "pactl load-module module-native-protocol-unix socket=$Pulseaudiosocket 2>&1" >>$Messagelogfile && {
-+      unpriv "pactl load-module module-native-protocol-unix socket=$Pulseaudiosocket auth-anonymous=true 2>&1" >>$Messagelogfile && {
+-      Pulseaudiomoduleid="$(unpriv "pactl load-module module-native-protocol-unix socket=$Pulseaudiosocket 2>&1")"
++      Pulseaudiomoduleid="$(unpriv "pactl load-module module-native-protocol-unix auth-anonymous=true socket=$Pulseaudiosocket 2>&1")"
+       [ "$Pulseaudiomoduleid" ] && {
+         storeinfo "pulseaudiomoduleid=$Pulseaudiomoduleid"
          store_runoption env "PULSE_SERVER=unix:$(convertpath share $Pulseaudiosocket)"
-         store_runoption env "PULSE_COOKIE=$(convertpath share $Pulseaudiocookie)"
-       } || {

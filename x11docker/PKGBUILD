@@ -2,7 +2,7 @@
 
 _name=x11docker
 pkgname=$_name
-pkgver=6.6.2
+pkgver=6.9.0
 _mainfolder=$pkgname-$pkgver
 pkgrel=1
 pkgdesc='Run GUI applications and desktops in Docker. Focus on security.'
@@ -18,8 +18,8 @@ depends=(docker nxagent xorg-xinit xorg-xauth xclip
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
         pulse-auth-anonymous.patch
         x11docker.install)
-sha256sums=('cae2a5f45679a650ed6bff37b27f1cb00999e35f05d159f98165c53ebf1a8b1b'
-            'd1024b7a7c1d6f88e2d0594fe2e8e4dbf63d3598d02e0b3ae7f75c4cf957697c'
+sha256sums=('2206866d289e7f0e0fa710af3a62bd0afb1568f7b5510efcf1c2fd5c4f5082c8'
+            'c71b0def02506e450f6c9359cb2a3975b793672d14fa522f49cd1d722919e037'
             '0a3cc92a7530d753381edc04ca86afbc28019678bef1168c3bb0183b814c3714')
 
 prepare() {
