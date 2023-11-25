@@ -2,7 +2,7 @@
 
 _name=x11docker
 pkgname=$_name
-pkgver=6.9.0
+pkgver=7.4.2
 _mainfolder=$pkgname-$pkgver
 pkgrel=1
 pkgdesc='Run GUI applications and desktops in Docker. Focus on security.'
@@ -18,13 +18,13 @@ depends=(docker nxagent xorg-xinit xorg-xauth xclip
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
         pulse-auth-anonymous.patch
         x11docker.install)
-sha256sums=('2206866d289e7f0e0fa710af3a62bd0afb1568f7b5510efcf1c2fd5c4f5082c8'
+sha256sums=('0ec3e07d852061a9290726c4a918994458c270bc43d31223ea38e7b832c76c9d'
             'c71b0def02506e450f6c9359cb2a3975b793672d14fa522f49cd1d722919e037'
             '0a3cc92a7530d753381edc04ca86afbc28019678bef1168c3bb0183b814c3714')
 
 prepare() {
     cd "$srcdir"
-    patch --forward --strip=1 --input="${srcdir}/pulse-auth-anonymous.patch"
+    #patch --forward --strip=1 --input="${srcdir}/pulse-auth-anonymous.patch"
 }
 
 package() {
